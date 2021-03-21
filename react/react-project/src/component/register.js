@@ -43,29 +43,41 @@ export default withRouter(connect(mapStateToProps, mapDispatchToProps)(function 
 
     return (
         <div className="container">
+            <div class="container">
+                <br /><br />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="loader9">
+                            <div class="box-1"></div>
+                            <div class="box-2"></div>
+                        </div>
+                    </div>
+                </div>
+                <br /><br />
+            </div>
             <div className="row">
                 <div className="col-3">
 
                 </div>
                 <div className="col-6">
                     <form>
-                        <h1>register</h1>
+                        <h1>Register</h1>
                         <div className="mb-3">
-                            <label HtmlFor="name" className="form-label">Name</label>
+                            <label htmlFor="name" className="form-label">Name</label>
                             <input type="text" className="form-control" id="name" ref={reftoName} />
                         </div>
                         <div className="mb-3">
-                            <label HtmlFor="lastName" className="form-label">Last Name</label>
+                            <label htmlFor="lastName" className="form-label">Last Name</label>
                             <input type="text" className="form-control" id="lastName" ref={reftoLastName} />
                         </div>
 
                         <div className="mb-3">
-                            <label HtmlFor="exampleInputPassword1" className="form-label">Password</label>
+                            <label htmlFor="exampleInputPassword1" className="form-label">Password</label>
                             <input type="password" className="form-control" id="exampleInputPassword1" ref={reftoPassword} />
                         </div>
 
                     </form>
-                    <button className="btn btn-primary" onClick={register}>Submit</button>
+                    <button className="btn btn-primary" onClick={register}>Register</button>
 
                 </div >
 

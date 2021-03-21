@@ -18,7 +18,6 @@ export default connect(mapStateToProps)(function NasaPictures(props) {
 
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        // myHeaders.append('Access-Control-Allow-Origin', '*')
         myHeaders.append("authorization", user);
         var requestOptions = {
             method: 'POST',
@@ -31,10 +30,6 @@ export default connect(mapStateToProps)(function NasaPictures(props) {
             .then(response => response.json())
             .then(res => console.log(res))
             .catch(error => console.log('error', error));
-
-
-
-        // לעשות שליחה לשרת // fetch(" https://api.nasa.gov/planetary/apod?api_key=qjHyfpXmMLioWSrTTvMmStyV8gJikAfdl2Gilea8")
 
 
     }
@@ -52,9 +47,8 @@ export default connect(mapStateToProps)(function NasaPictures(props) {
     return (
 
         <>
-            <h1>Pictures</h1>
-            {/* style="width: 18rem;" */}
-            <div className="card" style={{ width: "25rem" }}>
+            <h1 style={{ color: "red" }}>Picture Of The Day</h1>
+            <div className="card" className="apod" style={{ width: "25rem" }}>
                 <h1>NASA Astronomy Picture Of The Day</h1>
                 <h2>{picture.title}</h2>
                 <p className="card-text">{picture.date}</p>

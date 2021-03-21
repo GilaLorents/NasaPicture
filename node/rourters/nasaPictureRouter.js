@@ -12,6 +12,5 @@ router.use((req, res, next) => {
 })
 router.post('/newPicture', picture.newPicture);
 router.post('/getAllPicture', picture.getAllPicture)
-router.post('/newMyPicture', picture.newMyPicture)
 
 module.exports = router;

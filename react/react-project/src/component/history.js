@@ -8,10 +8,9 @@ function mapStateToProps(state) {
 }
 export default connect(mapStateToProps)(function HistoryPictures(props) {
     const { user } = props;
-    var reader = new FileReader();
-
-    const [urlImg, setUrlImg] = useState();
+    const [newPicture, setNewPicture] = useState(0);
     const [historyPicture, setHistoryPicture] = useState();
+
     console.log("state" + user)
     console.log("current user    " + user)
 
@@ -29,29 +28,45 @@ export default connect(mapStateToProps)(function HistoryPictures(props) {
         fetch("http://localhost:3000/picture/getAllPicture", requestOptions)
             .then(response => response.json())
             .then(response => {
-                debugger;
                 setHistoryPicture(response);
             })
             .catch(error => console.log('error', error));
 
     }, [])
-   
 
 
 
-    function onChange(e) {
-        let files = e.target.files;
-        console.log(files);
-        reader.onload = r => {
-            console.log("malki" + reader.result)
 
-        };
-        debugger;
+    function myFunc(event) {
 
 
-        //לשמור שתיקיית 
+        var fileReader = new FileReader()
 
-        setUrlImg(reader.readAsDataURL(files[0]))
+        fileReader.onload = ((e) => {
+            debugger;
+            setNewPicture(e.target.result);
+            requestOptions.body = JSON.stringify({ "url": e.target.result, "title": 'my own picture', "date": Date.now(), "explanation": "i added this picture" });
+            fetch("http://localhost:3000/picture/newPicture", requestOptions)
+                .then(response => response.json())
+                .then(res => console.log(res))
+                .catch(error => console.log('error', error));
+
+
+
+        })
+        setNewPicture(fileReader.readAsDataURL(event.target.files[0]))
+
+    }
+    const myStyle = {
+
+        width: "25%",
+        hight: "1000px",
+        display: "inline-block"
+    }
+    const imgStyle =
+    {
+        width: "300px",
+        hight: "500px"
 
 
     }
@@ -59,37 +74,57 @@ export default connect(mapStateToProps)(function HistoryPictures(props) {
 
     return (
 
-        <>    {historyPicture !== undefined ?
-            <>
-                <h1>history</h1>
-                {
+        <>
+            <h1 style={{ color: "red" }}>My History Pictures</h1>
+            <h4>Choose your own picture</h4>
+            <h5>  <input type="file" accept="url" className="historyPicture" onChange={myFunc} /> </h5>
 
-                    historyPicture.picture.picture.map((item, index) => (
 
-                        <div class="card" style={{ width: "25%" }, { display: "inline-block" }} key={index}>
-                            <h1>NASA Astronomy Picture Of The Day</h1>
-                            <h2>{item.title}</h2>
-                            <p class="card-text">{item.date}</p>
-                            <img src={item.url} class="card-img-top" alt="img" />
-                            <div class="card-body">
-                                <p class="card-text">{item.explanation}</p>
+            {historyPicture !== undefined ?
 
+                <>
+
+                    {
+
+
+                        historyPicture.picture.picture.map((item, index) => (
+
+                            <div class="card" style={myStyle} key={index}>
+                                <h2>{item.title}</h2>
+                                <p class="card-text">{item.date}</p>
+                                <img src={item.url} class="card-img-top" alt="img" style={imgStyle} />
+                                <div class="card-body">
+                                    {/* <p class="card-text">{item.explanation}</p> */}
+
+                                </div>
+                            </div>
+
+                        ))}
+
+                </>
+                :
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="loader12">
+                                <div class="loader-inner-1 box-1 box-red"></div>
+                                <div class="loader-inner-2 box-2 box-pink"></div>
+                                <div class="loader-inner-1 box-3 box-blue"></div>
+                                <div class="loader-inner-2 box-4 box-yellow"></div>
+                                <div class="loader-inner-1 box-5 box-peach"></div>
+                                <div class="loader-inner-2 box-6 box-pink"></div>
+                                <div class="loader-inner-1 box-7 box-green"></div>
+                                <div class="loader-inner-2 box-8 box-purple"></div>
                             </div>
                         </div>
+                    </div>
 
-                    ))}
-
-            </>
-            :
-
-            <div>Loading</div>
+                </div>
 
 
-        }
+            }
 
-
-
-            <input type="file" id="userfile" onChange={(event) => onChange(event)}></input>
 
 
         </>

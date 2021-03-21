@@ -3,14 +3,13 @@ import produce from 'immer'
 import createReducer from './reducerUtills'
 
 const intioanalState = {
-
     users:
-        { name: "gili" }
+        { name: null }
 }
 const users = {
     addNewUser(state, action) {
         state.users = action.payload;
-        console.log('new Login');
+        console.log('new Login/register');
         console.log(state.users);
     },
 

@@ -32,13 +32,9 @@ const pictureSchama = mongoose.Schema(
             type: String,
 
         },
-        img: {
-            type: String
-        },
-        isNasa: {
-            type: Boolean,
-            default: true
-        },
+       
+
+
 
         user:
         {
